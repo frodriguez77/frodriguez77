@@ -1,0 +1,7 @@
+.env
+cedulas_vistas.json
+consulta_cedulas.log
+__pycache__/
+*.pyc
+.venv/
+venv/
