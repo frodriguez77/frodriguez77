@@ -22,10 +22,10 @@ from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeo
 # ---------------------------------------------------------------------------
 
 CONFIG = {
-    "matricula":       os.environ.get("SISFE_MATRICULA", ""),
-    "password":        os.environ.get("SISFE_PASSWORD", ""),
-    "circunscripcion": os.environ.get("SISFE_CIRCUNSCRIPCION", "Santa Fe"),
-    "colegio":         os.environ.get("SISFE_COLEGIO", "Contadores"),
+    "matricula":          os.environ.get("SISFE_MATRICULA", ""),
+    "password":           os.environ.get("SISFE_PASSWORD", ""),
+    "id_circunscripcion": os.environ.get("SISFE_ID_CIRCUNSCRIPCION", "1"),  # 1 = Santa Fe
+    "id_colegio":         os.environ.get("SISFE_ID_COLEGIO", "3"),          # 3 = Contadores
 
     "email_destinatario": os.environ.get("EMAIL_DESTINATARIO", ""),
     "email_remitente":    os.environ.get("EMAIL_REMITENTE", ""),
@@ -80,19 +80,19 @@ def hacer_login(page) -> bool:
     log.info("Abriendo página de login...")
     page.goto(LOGIN_URL, wait_until="networkidle")
 
-    # Seleccionar Circunscripción
+    # Seleccionar Circunscripción (idCircunscripcion=1 → Santa Fe)
     try:
-        page.locator("[formcontrolname='circunscripcion']").select_option(label=CONFIG["circunscripcion"])
-        log.info(f"Circunscripción seleccionada: {CONFIG['circunscripcion']}")
+        page.locator("[formcontrolname='idCircunscripcion']").select_option(value=CONFIG["id_circunscripcion"])
+        log.info(f"Circunscripción seleccionada (id={CONFIG['id_circunscripcion']})")
     except Exception as e:
-        log.warning(f"No se pudo seleccionar circunscripción automáticamente: {e}")
+        log.warning(f"No se pudo seleccionar circunscripción: {e}")
 
-    # Seleccionar Colegio
+    # Seleccionar Colegio (idColegio=3 → Contadores)
     try:
-        page.locator("[formcontrolname='colegio']").select_option(label=CONFIG["colegio"])
-        log.info(f"Colegio seleccionado: {CONFIG['colegio']}")
+        page.locator("[formcontrolname='idColegio']").select_option(value=CONFIG["id_colegio"])
+        log.info(f"Colegio seleccionado (id={CONFIG['id_colegio']})")
     except Exception as e:
-        log.warning(f"No se pudo seleccionar colegio automáticamente: {e}")
+        log.warning(f"No se pudo seleccionar colegio: {e}")
 
     # Completar matrícula
     page.locator("[formcontrolname='matricula']").fill(CONFIG["matricula"])
