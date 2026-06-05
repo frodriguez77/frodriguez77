@@ -15,23 +15,38 @@ Monitorea diariamente las cédulas de notificación del sistema SISFE y envía u
 
 ## Instalación (una sola vez)
 
-```bash
+```cmd
 # 1. Instalar dependencias
-pip install -r requirements.txt
+py -m pip install -r requirements.txt
 
-# 2. Configurar credenciales
-cp .env.example .env
-nano .env          # completar con tus datos reales
+# 2. Instalar el navegador Chromium que usa Playwright
+py -m playwright install chromium
+
+# 3. Configurar credenciales
+copy .env.example .env
+notepad .env
 ```
 
 ---
 
-## Ejecución manual
+## Ejecución manual (Windows)
 
-```bash
-# Cargar variables de entorno y ejecutar
-export $(cat .env | xargs) && python3 consulta_cedulas.py
+```cmd
+set SISFE_MATRICULA=18112
+set SISFE_PASSWORD=tu_contraseña
+set SISFE_CIRCUNSCRIPCION=Santa Fe
+set SISFE_COLEGIO=Contadores
+set EMAIL_DESTINATARIO=tu@gmail.com
+set EMAIL_REMITENTE=tu@gmail.com
+set EMAIL_PASSWORD=xxxxxxxxxxxxxxxx
+py consulta_cedulas.py
 ```
+
+Al ejecutar:
+1. Se abre un navegador Chromium automáticamente
+2. El script completa matrícula y contraseña solo
+3. **Vos solo resolvés el reCAPTCHA y hacés clic en "Ingresar"**
+4. El script hace el resto: busca cédulas y manda el email
 
 ---
 
