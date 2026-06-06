@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "SafeBackup",
+    "slug": "safebackup",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2563EB"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2563EB"
+      },
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_CONTACTS",
+        "android.permission.MANAGE_EXTERNAL_STORAGE"
+      ],
+      "package": "com.safebackup.app"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.safebackup.app",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "SafeBackup necesita acceso a tus fotos para hacer backup.",
+        "NSContactsUsageDescription": "SafeBackup necesita acceso a tus contactos para hacer backup."
+      }
+    },
+    "plugins": [
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "SafeBackup necesita acceso a tus fotos.",
+          "savePhotosPermission": "SafeBackup necesita guardar fotos restauradas."
+        }
+      ],
+      "expo-contacts",
+      "expo-secure-store"
+    ]
+  }
+}
